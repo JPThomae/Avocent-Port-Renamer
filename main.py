@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox
 import os
 from netmiko import ConnectHandler
 import time
@@ -37,8 +38,27 @@ def add():
             connection.send_command_timing('save', read_timeout=0)
             print(f"Port {x} re-name complete.")
 
+
 def check_saved():
     os.startfile(r'port_names.txt')
+
+
+def test_connection():
+    device = {
+        'device_type': 'terminal_server',
+        'ip': ipv4_entry.get(),
+        'username': user_entry.get(),
+        'password': password_entry.get()
+    }
+
+    connection = ConnectHandler(**device)
+
+    if connection.find_prompt():
+        tkinter.messagebox.showinfo("Connection Test", "Connected.")
+    
+    else:
+        tkinter.messagebox.showinfo("Connection Test", "Failed.")
+
 
 tv = Tk()
 tv.minsize(width=400, height=400)
@@ -66,13 +86,17 @@ user_text.place(x=25, y=260)
 password_text = Label(text="Password:", font=("Rockwell", 10), bg=TAN)
 password_text.place(x=25, y=290)
 
-add_button = Button(height=1, width=25, text="Rename Ports", font=("Rockwell", 10),
+add_button = Button(height=1, width=12, text="Rename Ports", font=("Rockwell", 10),
                     relief="flat", bg=WHITE, command=add)
-add_button.place(x=157, y=325)
+add_button.place(x=20, y=360)
 
 saved_button = Button(height=1, width=12, text="Modify Names", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=check_saved)
-saved_button.place(x=25, y=325)
+saved_button.place(x=20, y=325)
+
+test_button = Button(height=1, width=12, text="Test Connection", font=("Rockwell", 10),
+                      relief="flat", bg=WHITE, command=test_connection)
+test_button.place(x=170, y=325)
 
 ipv4_entry = Entry(width=42, bg=WHITE)
 ipv4_entry.place(x=127, y=232)
