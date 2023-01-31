@@ -18,7 +18,7 @@ def add():
     }
 
     connection = ConnectHandler(**device)
-    time.sleep(3)
+    time.sleep(2)
 
     if '~]#' in connection.find_prompt():
         connection.send_command('cli', read_timeout=0, expect_string=main_prompt)
@@ -66,9 +66,9 @@ user_text.place(x=25, y=260)
 password_text = Label(text="Password:", font=("Rockwell", 10), bg=TAN)
 password_text.place(x=25, y=290)
 
-add_button = Button(height=1, width=35, text="Rename Ports", font=("Rockwell", 10),
+add_button = Button(height=1, width=25, text="Rename Ports", font=("Rockwell", 10),
                     relief="flat", bg=WHITE, command=add)
-add_button.place(x=127, y=325)
+add_button.place(x=157, y=325)
 
 saved_button = Button(height=1, width=12, text="Modify Names", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=check_saved)
