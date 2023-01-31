@@ -94,9 +94,9 @@ saved_button = Button(height=1, width=12, text="Modify Names", font=("Rockwell",
                       relief="flat", bg=WHITE, command=check_saved)
 saved_button.place(x=20, y=325)
 
-test_button = Button(height=1, width=12, text="Test Connection", font=("Rockwell", 10),
+test_button = Button(height=2, width=20, text="Test Connection", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=test_connection)
-test_button.place(x=170, y=325)
+test_button.place(x=210, y=343)
 
 ipv4_entry = Entry(width=42, bg=WHITE)
 ipv4_entry.place(x=127, y=232)
