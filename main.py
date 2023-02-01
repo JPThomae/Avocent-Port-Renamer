@@ -19,10 +19,10 @@ def add():
     }
 
     connection = ConnectHandler(**device)
-    time.sleep(2)
+    time.sleep(3)
 
     if '~]#' in connection.find_prompt():
-        connection.send_command('cli', read_timeout=0, expect_string=main_prompt)
+        connection.send_command('cli', read_timeout=2, expect_string=main_prompt)
 
     port_names = []
     with open('port_names.txt') as file:
