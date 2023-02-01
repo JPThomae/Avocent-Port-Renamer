@@ -36,7 +36,11 @@ def add():
             connection.send_command_timing('cd cas/', read_timeout=0)
             connection.send_command_timing(f'set port_name={port_names[x - 1]}', read_timeout=0)
             connection.send_command_timing('save', read_timeout=0)
-            print(f"Port {x} re-name complete.")
+            
+            site_text = Label(text=f"Port {x} re-name complete.", font=("Rockwell", 10), bg=TAN)
+            site_text.place(x=180, y=315)
+            tv.update_idletasks()
+            
 
 
 def check_saved():
@@ -96,7 +100,7 @@ saved_button.place(x=20, y=325)
 
 test_button = Button(height=2, width=20, text="Test Connection", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=test_connection)
-test_button.place(x=210, y=343)
+test_button.place(x=180, y=343)
 
 ipv4_entry = Entry(width=42, bg=WHITE)
 ipv4_entry.place(x=127, y=232)
