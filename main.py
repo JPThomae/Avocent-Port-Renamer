@@ -3,6 +3,8 @@ import tkinter.messagebox
 import os
 from netmiko import ConnectHandler
 import time
+import threading
+
 
 main_prompt = '--:- / cli->'
 BLACK = "#100F0F"
@@ -40,8 +42,9 @@ def add():
             site_text = Label(text=f"Port {x} re-name complete.", font=("Rockwell", 10), bg=TAN)
             site_text.place(x=180, y=315)
             tv.update_idletasks()
-            
 
+    tkinter.messagebox.showinfo("Process End", "Port Rename Complete.")
+            
 
 def check_saved():
     os.startfile(r'port_names.txt')
@@ -57,13 +60,16 @@ def test_connection():
 
     connection = ConnectHandler(**device)
 
-    if connection.find_prompt():
+    time.sleep(3)
+
+    current_prompt = connection.find_prompt()
+    print(current_prompt)
+
+    if connection:
         tkinter.messagebox.showinfo("Connection Test", "Connected.")
     
-    else:
-        tkinter.messagebox.showinfo("Connection Test", "Failed.")
-
-
+    
+    
 tv = Tk()
 tv.minsize(width=400, height=400)
 tv.maxsize(width=400, height=400)
@@ -91,7 +97,7 @@ password_text = Label(text="Password:", font=("Rockwell", 10), bg=TAN)
 password_text.place(x=25, y=290)
 
 add_button = Button(height=1, width=12, text="Rename Ports", font=("Rockwell", 10),
-                    relief="flat", bg=WHITE, command=add)
+                    relief="flat", bg=WHITE, command=threading.Thread(target=add).start)
 add_button.place(x=20, y=360)
 
 saved_button = Button(height=1, width=12, text="Modify Names", font=("Rockwell", 10),
