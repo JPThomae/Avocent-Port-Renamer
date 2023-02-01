@@ -50,6 +50,10 @@ def check_saved():
     os.startfile(r'port_names.txt')
 
 
+def readme_file():
+    os.startfile(r'readme.txt')
+
+
 def test_connection():
     device = {
         'device_type': 'terminal_server',
@@ -69,7 +73,7 @@ def test_connection():
         tkinter.messagebox.showinfo("Connection Test", "Connected.")
     
     
-    
+
 tv = Tk()
 tv.minsize(width=400, height=400)
 tv.maxsize(width=400, height=400)
@@ -103,6 +107,10 @@ add_button.place(x=20, y=360)
 saved_button = Button(height=1, width=12, text="Modify Names", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=check_saved)
 saved_button.place(x=20, y=325)
+
+readme_button = Button(height=1, width=12, text="How to Use", font=("Rockwell", 10),
+                      relief="flat", bg=WHITE, command=readme_file)
+readme_button.place(x=20, y=190)
 
 test_button = Button(height=2, width=20, text="Test Connection", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=test_connection)
