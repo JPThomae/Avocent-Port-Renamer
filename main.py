@@ -39,7 +39,7 @@ def add():
             connection.send_command_timing(f'set port_name={port_names[x - 1]}', read_timeout=0)
             connection.send_command_timing('save', read_timeout=0)
             
-            site_text = Label(text=f"Port {x} re-name complete.", font=("Rockwell", 10), bg=TAN)
+            site_text = Label(text=f"Port {x} rename complete.", font=("Rockwell", 10), bg=TAN)
             site_text.place(x=180, y=315)
             tv.update_idletasks()
 
