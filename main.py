@@ -33,14 +33,14 @@ def add():
 
     if connection.find_prompt() == main_prompt:
         connection.send_command("cd ports/serial_ports/", read_timeout=3, expect_string='--:- serial_ports cli->')
-        for x in range(1, len(port_names) + 1):
+        for x in range(int(starting_port_entry.get()), int(starting_port_entry.get()) + len(port_names)):
             connection.send_command_timing(f'cd {x}/', read_timeout=0)
             connection.send_command_timing('cd cas/', read_timeout=0)
-            connection.send_command_timing(f'set port_name={port_names[x - 1]}', read_timeout=0)
+            connection.send_command_timing(f'set port_name={port_names[x - 1 - int(starting_port_entry.get())]}', read_timeout=0)
             connection.send_command_timing('save', read_timeout=0)
             
             site_text = Label(text=f"Port {x} rename complete.", font=("Rockwell", 10), bg=TAN)
-            site_text.place(x=180, y=315)
+            site_text.place(x=180, y=190)
             tv.update_idletasks()
 
     tkinter.messagebox.showinfo("Process End", "Port Rename Complete.")
@@ -100,6 +100,9 @@ user_text.place(x=25, y=260)
 password_text = Label(text="Password:", font=("Rockwell", 10), bg=TAN)
 password_text.place(x=25, y=290)
 
+starting_port = Label(text="Starting Port:", font=("Rockwell", 10), bg=TAN)
+starting_port.place(x=200, y=325)
+
 add_button = Button(height=1, width=12, text="Rename Ports", font=("Rockwell", 10),
                     relief="flat", bg=WHITE, command=threading.Thread(target=add).start)
 add_button.place(x=20, y=360)
@@ -112,9 +115,9 @@ readme_button = Button(height=1, width=12, text="How to Use", font=("Rockwell", 
                       relief="flat", bg=WHITE, command=readme_file)
 readme_button.place(x=20, y=190)
 
-test_button = Button(height=2, width=20, text="Test Connection", font=("Rockwell", 10),
+test_button = Button(height=1, width=20, text="Test Connection", font=("Rockwell", 10),
                       relief="flat", bg=WHITE, command=test_connection)
-test_button.place(x=180, y=343)
+test_button.place(x=190, y=360)
 
 ipv4_entry = Entry(width=42, bg=WHITE)
 ipv4_entry.place(x=127, y=232)
@@ -124,6 +127,10 @@ user_entry.place(x=127, y=263)
 
 password_entry = Entry(width=42, bg=WHITE)
 password_entry.place(x=127, y=293)
+
+starting_port_entry = Entry(width=4, bg=WHITE)
+starting_port_entry.insert(END, "1")
+starting_port_entry.place(x=288, y=328)
 
 data_box = Text(height=8, width=32)
 
