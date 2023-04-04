@@ -27,6 +27,7 @@ def add():
         connection.send_command('cli', read_timeout=2, expect_string=main_prompt)
 
     port_names = []
+    print(port_names)
     with open('port_names.txt') as file:
         for line in file:
             port_names.append(line.strip())
@@ -36,7 +37,7 @@ def add():
         for x in range(int(starting_port_entry.get()), int(starting_port_entry.get()) + len(port_names)):
             connection.send_command_timing(f'cd {x}/', read_timeout=0)
             connection.send_command_timing('cd cas/', read_timeout=0)
-            connection.send_command_timing(f'set port_name={port_names[x - 1 - int(starting_port_entry.get())]}', read_timeout=0)
+            connection.send_command_timing(f'set port_name={port_names[x - int(starting_port_entry.get())]}', read_timeout=0)
             connection.send_command_timing('save', read_timeout=0)
             
             site_text = Label(text=f"Port {x} rename complete.", font=("Rockwell", 10), bg=TAN)
